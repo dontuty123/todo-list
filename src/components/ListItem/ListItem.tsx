@@ -1,9 +1,32 @@
 /** @format */
 
-import React, { Component } from "react";
+import React from "react";
 import Item from "../Item";
+import Edit from "../Edit";
+import { ItemType } from "../../types/itemtype";
 
-export default class ListItem extends Component {
+interface ItemsType {
+  items: ItemType[];
+}
+
+export default class ListItem extends React.Component<ItemsType> {
+  constructor(props: ItemsType) {
+    super(props);
+  }
+  // constructor(props: ItemType[]) {
+  //   super(props);
+  //   this.state = {
+  //     items: Items as ItemType[],
+  //   };
+  //   this.renderItem = this.renderItem.bind(this)
+  // }
+  renderItem = (): JSX.Element[] => {
+    const { items } = this.props;
+    return items.map((item: ItemType, index: number) => (
+      <Item item={item} key={index} />
+    ));
+  };
+
   render() {
     return (
       <div className="panel panel-success">
@@ -22,96 +45,8 @@ export default class ListItem extends Component {
             </tr>
           </thead>
           <tbody>
-            <Item />
-            <tr>
-              <td className="text-center">2</td>
-              <td>Không còn tranh cướp lộc hoa tre ở lễ hội đền Gióng 2018</td>
-              <td className="text-center">
-                <span className="label label-default">Small</span>
-              </td>
-              <td>
-                <button type="button" className="btn btn-warning btn-sm">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-danger btn-sm">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-center">3</td>
-              <td>
-                Hơn 37.000 người nhập viện vì tai nạn giao thông, đốt pháo
-              </td>
-              <td className="text-center">
-                <span className="label label-info">Medium</span>
-              </td>
-              <td>
-                <button type="button" className="btn btn-warning btn-sm">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-danger btn-sm">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-center">4</td>
-              <td>Gần 200 người chết vì tai nạn giao thông 7 ngày nghỉ Tết</td>
-              <td className="text-center">
-                <span className="label label-info">Medium</span>
-              </td>
-              <td>
-                <button type="button" className="btn btn-warning btn-sm">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-danger btn-sm">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-center">5</td>
-              <td>
-                VFF giải ngân 15 tỷ đồng, tiền thưởng tới tay U23 VN trước Tết
-              </td>
-              <td className="text-center">
-                <span className="label label-info">Medium</span>
-              </td>
-              <td>
-                <button type="button" className="btn btn-warning btn-sm">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-danger btn-sm">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-center">6</td>
-              <td>
-                <input
-                  type="text"
-                  className="form-control"
-                  defaultValue="F1 muốn tổ chức giải đua xe tại Việt Nam vào năm 2020"
-                />
-              </td>
-              <td className="text-center">
-                <select className="form-control">
-                  <option>Small</option>
-                  <option>Medium</option>
-                  <option>High</option>
-                </select>
-              </td>
-              <td>
-                <button type="button" className="btn btn-default btn-sm">
-                  Cancel
-                </button>
-                <button type="button" className="btn btn-success btn-sm">
-                  Save
-                </button>
-              </td>
-            </tr>
+            {this.renderItem()}
+            <Edit />
           </tbody>
         </table>
       </div>

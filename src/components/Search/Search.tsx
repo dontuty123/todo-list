@@ -9,7 +9,7 @@ export default class Search extends Component {
         <div className="input-group">
           <input
             type="text"
-            className="form-control"
+            className="form-control mr"
             placeholder="Search item name"
           />
           <span className="input-group-btn">
