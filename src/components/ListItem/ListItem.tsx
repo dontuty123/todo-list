@@ -7,6 +7,16 @@ import { ItemType } from "../../types/itemtype";
 
 interface ItemsType {
   items: ItemType[];
+  handleDeleteItem: (value: string) => void;
+  showEditForm: boolean;
+  handleHideEditForm: () => void;
+  handleShowEditForm: (item: ItemType) => void;
+  editItem: ItemType;
+  valueEditItem: string;
+  levelEditItem: number;
+  handleEditName: (value: string) => void;
+  handleEditLevelItem: (value: number) => void;
+  handleSubmitEditForm: (id: string) => void;
 }
 
 export default class ListItem extends React.Component<ItemsType> {
@@ -23,7 +33,12 @@ export default class ListItem extends React.Component<ItemsType> {
   renderItem = (): JSX.Element[] => {
     const { items } = this.props;
     return items.map((item: ItemType, index: number) => (
-      <Item item={item} key={index} />
+      <Item
+        handleShowEditForm={this.props.handleShowEditForm}
+        handleDeleteItem={this.props.handleDeleteItem}
+        item={item}
+        key={index}
+      />
     ));
   };
 
@@ -46,7 +61,14 @@ export default class ListItem extends React.Component<ItemsType> {
           </thead>
           <tbody>
             {this.renderItem()}
-            <Edit />
+            <Edit
+              handleSubmitEditForm={this.props.handleSubmitEditForm}
+              handleEditName={this.props.handleEditName}
+              handleEditLevelItem={this.props.handleEditLevelItem}
+              editItem={this.props.editItem}
+              showEditForm={this.props.showEditForm}
+              handleHideEditForm={this.props.handleHideEditForm}
+            />
           </tbody>
         </table>
       </div>

@@ -5,6 +5,8 @@ import { ItemType } from "../../types/itemtype";
 
 interface ItemProp {
   item: ItemType;
+  handleDeleteItem: (value: string) => void;
+  handleShowEditForm: (item: ItemType) => void;
 }
 
 export default class Item extends React.Component<ItemProp> {
@@ -38,10 +40,18 @@ export default class Item extends React.Component<ItemProp> {
           <span className={classNameLabel}>{nameLabel}</span>
         </td>
         <td>
-          <button type="button" className="btn btn-warning btn-sm mr">
+          <button
+            type="button"
+            className="btn btn-warning btn-sm mr"
+            onClick={() => this.props.handleShowEditForm(this.props.item)}
+          >
             Edit
           </button>
-          <button type="button" className="btn btn-danger btn-sm">
+          <button
+            type="button"
+            className="btn btn-danger btn-sm"
+            onClick={() => this.props.handleDeleteItem(this.props.item.id)}
+          >
             Delete
           </button>
         </td>
